@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProducts } from '../../api/backendapi';
-import './categoryPage.css'
+import './categorypage.css'
 function CategoryPage() {
     const { categoryName } = useParams();
     const [products, setProducts] = useState([]);
