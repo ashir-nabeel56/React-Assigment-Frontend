@@ -9,7 +9,6 @@ function CategoryPage() {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Filter States
     const [priceRange, setPriceRange] = useState(500);
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
@@ -49,18 +48,15 @@ function CategoryPage() {
     const colorsList = ['#00C12B', '#F52525', '#FFC700', '#FF7A00', '#06CAF0', '#1877F2', '#7D06F0', '#F506A4', '#FFFFFF', '#000000'];
     const sizesList = ['XX-Small', 'X-Small', 'Small', 'Medium', 'Large', 'X-Large', 'XX-Large', '3X-Large', '4X-Large'];
 
-    // Total products to display after limiting to 4
     const visibleProducts = filteredProducts.slice(0, 4);
 
     return (
         <div className="category-container">
-            {/* Breadcrumb */}
             <div className="category-breadcrumb">
                 <Link to="/">Home</Link> <span>&gt;</span> <strong>{categoryName || 'Casual'}</strong>
             </div>
 
             <div className="category-layout">
-                {/* Left Sidebar Filters */}
                 <aside className="filters-sidebar">
                     <div className="filter-header">
                         <h3>Filters</h3>
@@ -68,7 +64,6 @@ function CategoryPage() {
                     </div>
                     <hr />
 
-                    {/* Category List */}
                     <div className="filter-group">
                         {categoriesList.map((cat, index) => (
                             <div key={index} className="filter-item-row">
@@ -79,7 +74,6 @@ function CategoryPage() {
                     </div>
                     <hr />
 
-                    {/* Price Filter */}
                     <div className="filter-group">
                         <div className="filter-title">
                             <span>Price</span>
@@ -119,7 +113,6 @@ function CategoryPage() {
                     </div>
                     <hr />
 
-                    {/* Size Filter */}
                     <div className="filter-group">
                         <div className="filter-title">
                             <span>Size</span>
@@ -139,7 +132,6 @@ function CategoryPage() {
                     </div>
                     <hr />
 
-                    {/* Dress Style */}
                     <div className="filter-group">
                         <div className="filter-title">
                             <span>Dress Style</span>
