@@ -1,4 +1,9 @@
 import './footer.css';
+import image1 from '../../public/Badge (1).png'
+import image2 from '../../public/Badge (2).png'
+import image3 from '../../public/Badge (4).png'
+import image4 from '../../public/Badge (5).png'
+import image5 from '../../public/Badge (6).png'
 
 const Footer = () => {
   return (
@@ -133,11 +138,11 @@ const Footer = () => {
               Shop.co © 2000-2023, All Rights Reserved
             </p>
             <div className="payment-badges">
-              <span ><img src="/src/assets/Badge.png" alt="" /></span>
-              <span ><img src="/src/assets/Badge (5).png" alt="" /></span>
-              <span ><img src="/src/assets/Badge (1).png" alt="" /></span>
-              <span ><img src="/src/assets/Badge (2).png" alt="" /></span>
-              <span ><img src="/src/assets/Badge (3).png" alt="" /></span>
+              <span ><img src={image1} alt="" /></span>
+              <span ><img src={image2} alt="" /></span>
+              <span ><img src={image3} alt="" /></span>
+              <span ><img src={image4} alt="" /></span>
+              <span ><img src={image5} alt="" /></span>
               
             </div>
           </div>
