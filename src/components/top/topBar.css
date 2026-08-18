@@ -1,0 +1,43 @@
+.topbar {
+  width: 100%;
+  height: 38px;
+  background-color: #000;
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  font-family: Arial, sans-serif;
+  z-index: 1001;
+}
+
+.topbar p {
+  font-size: 12px;
+  text-align: center;
+}
+
+.topbar span {
+  color: #fff;
+  font-weight: 600;
+}
+
+.topbar a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.close-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: none;
+  border: none;
+  color: white;
+
+  font-size: 22px;
+  cursor: pointer;
+}

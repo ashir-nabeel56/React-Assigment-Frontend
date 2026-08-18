@@ -1,0 +1,252 @@
+.category-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+.category-breadcrumb {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.category-breadcrumb a {
+    text-decoration: none;
+    color: #666;
+}
+
+.category-layout {
+    display: flex;
+    gap: 30px;
+}
+
+/* Sidebar Styling */
+.filters-sidebar {
+    width: 295px;
+    border: 1px solid #e5e5e5;
+    border-radius: 20px;
+    padding: 20px;
+    height: fit-content;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-header h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.filters-sidebar hr {
+    border: none;
+    border-top: 1px solid #f0f0f0;
+    margin: 15px 0;
+}
+
+.filter-item-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    color: #666;
+    cursor: pointer;
+}
+
+.filter-title {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.price-slider {
+    width: 100%;
+    accent-color: #000;
+}
+
+.price-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.color-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1fr solid #ddd;
+    cursor: pointer;
+}
+
+.size-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.size-chip {
+    background: #f0f0f0;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 62px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #666;
+}
+
+.size-chip.active {
+    background: #000;
+    color: #fff;
+}
+
+.apply-filter-btn {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 62px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* Products Main Section */
+.products-main {
+    flex: 1;
+}
+
+.products-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.products-top-bar h2 {
+    font-size: 32px;
+    margin: 0;
+}
+
+.products-sort-info {
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.sort-select {
+    border: none;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+}
+
+.category-product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.cat-product-card {
+    text-decoration: none;
+    color: inherit;
+}
+
+.cat-img-wrapper {
+    background: #f0eeed;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cat-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.cat-product-title {
+    margin: 10px 0 5px;
+    font-size: 16px;
+}
+
+.cat-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.stars {
+    color: #ffc700;
+}
+
+.cat-price-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.current-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.old-price {
+    color: #999;
+    text-decoration: line-through;
+}
+
+.discount-badge {
+    background: #ffebeb;
+    color: #ff3333;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+/* Pagination */
+.pagination-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 20px;
+}
+
+.page-btn {
+    border: 1px solid #e5e5e5;
+    background: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.page-numbers span {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.page-numbers span.active {
+    background: #f0f0f0;
+    font-weight: bold;
+}

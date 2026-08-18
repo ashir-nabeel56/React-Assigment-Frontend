@@ -1,0 +1,146 @@
+/* Main Scoped Wrapper */
+.testimonials-wrapper {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+  
+}
+
+/* Reset inside wrapper only */
+.testimonials-wrapper,
+.testimonials-wrapper * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.testimonials-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Area */
+.testimonials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 10vh;
+}
+.testimonials-wrapper {
+  margin-bottom: 180px !important; /* Is se black box ke liye proper gap ban jayega */
+}
+
+.testimonials-header .section-title {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+/* Arrow Navigation Buttons */
+.slider-arrows {
+  display: flex;
+  gap: 12px;
+}
+
+.arrow-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  color: #000000;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.arrow-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* Slider Track (Horizontal Scroll) */
+.slider-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  
+  /* Hide Scrollbars */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.slider-track::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Testimonial Card Styling */
+.testimonial-card {
+  min-width: 350px;
+  max-width: 380px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 28px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stars {
+  color: #FFC107; /* Yellow/Gold Star Color */
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.user-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+/* Green Verified Checkmark Circle */
+.verified-badge {
+  background-color: #01AB31;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .testimonials-header .section-title {
+    font-size: 1.5rem;
+  }
+
+  .testimonial-card {
+    min-width: 280px;
+    padding: 20px;
+  }
+}

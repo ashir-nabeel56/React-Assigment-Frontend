@@ -1,0 +1,108 @@
+/* Main Wrapper Class (Body aur Global Styling ki jagah) */
+.dress-style-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Universal reset scope inside the wrapper */
+.dress-style-wrapper,
+.dress-style-wrapper * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Container */
+.dress-style-container {
+  background-color: #f0f0f0;
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+/* Grid Layout */
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Card Styling */
+.style-card {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 220px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.style-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Dynamic Widths for Cards */
+.card-small {
+  grid-column: span 1;
+}
+.all{
+    display: flex;
+    justify-content: center;
+}
+
+.card-large {
+  grid-column: span 2;
+}
+
+/* Card Title */
+.card-title {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000000;
+  z-index: 2;
+}
+
+/* Image Positioning */
+.style-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top right;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .style-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-small,
+  .card-large {
+    grid-column: span 1;
+  }
+  
+  .dress-style-container {
+    padding: 20px;
+  }
+}
