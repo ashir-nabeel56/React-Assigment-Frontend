@@ -149,7 +149,6 @@ function CategoryPage() {
                     </button>
                 </aside>
 
-                {/* Right Product Grid Section */}
                 <main className="products-main">
                     <div className="products-top-bar">
                         <h2>{categoryName || 'Casual'}</h2>
@@ -198,7 +197,6 @@ function CategoryPage() {
                         </div>
                     )}
 
-                    {/* Pagination */}
                     <div className="pagination-bar">
                         <button className="page-btn">&larr; Previous</button>
                         <div className="page-numbers">
