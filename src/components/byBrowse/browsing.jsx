@@ -21,7 +21,7 @@ function Browsing() {
             style={{ cursor: "pointer" }}
           >
             <span className="card-title"></span>
-            <img src="/src/assets/Frame 61.png" alt="Casual Style" />
+            <img src="/public/Frame 61.png" alt="Casual Style" />
           </div>
 
           {/* Formal */}
@@ -31,7 +31,7 @@ function Browsing() {
             style={{ cursor: "pointer" }}
           >
             <span className="card-title"></span>
-            <img src="/src/assets/Frame 62.png" alt="Formal Style" />
+            <img src="/public/Frame 62.png" alt="Formal Style" />
           </div>
 
           {/* Party */}
@@ -41,7 +41,7 @@ function Browsing() {
             style={{ cursor: "pointer" }}
           >
             <span className="card-title"></span>
-            <img src="/src/assets/Frame 64.png" alt="Party Style" />
+            <img src="/public/Frame 64.png" alt="Party Style" />
           </div>
 
           {/* Gym */}
@@ -51,7 +51,7 @@ function Browsing() {
             style={{ cursor: "pointer" }}
           >
             <span className="card-title"></span>
-            <img src="/src/assets/Frame 63.png" alt="Gym Style" />
+            <img src="/public/Frame 63.png" alt="Gym Style" />
           </div>
         </div>
       </section>

@@ -49,7 +49,7 @@ function Hero() {
 
         <span className="star star-one">✦</span>
 
-        <img src={"/src/assets/WhatsApp Image 2026-08-14 at 10.15.45 AM.jpeg"} alt="Fashion Models" />
+        <img src={"/public/b26fea69ccfd8aa5825862cdb9604a4fb4930464.jpg"} alt="Fashion Models" />
 
         <span className="star star-two">✦</span>
 
