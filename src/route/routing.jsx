@@ -4,7 +4,7 @@ import ProductList from "../components/pro/productsList";
 import ProductDetail from "../components/detail/ProductDetail";
 import YouMight from "../components/you/youMight";
 import Cart from "../components/cart/Cart"; 
-import CategoryPage from "../components/cate/CategoryPage";
+import CategoryPage from "../components/cate/categoryPage";
 
 function Routing() {
   return (
