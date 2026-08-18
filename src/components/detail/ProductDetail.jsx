@@ -10,7 +10,6 @@ function ProductDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
     
-    // Try to get context, handle gracefully if not in provider
     let addToCart = () => {
         console.warn('CartProvider not found. Using localStorage fallback.');
     };
@@ -19,7 +18,6 @@ function ProductDetail() {
         const cartContext = useCart();
         addToCart = cartContext?.addToCart || (() => {});
     } catch (error) {
-        // Not in CartProvider, will use fallback
     }
 
     const [product, setProduct] = useState(null);
@@ -108,16 +106,7 @@ function ProductDetail() {
         }
     }, [id]);
 
-    // const handleAddToCart = () => {
-    //     if (product) {
-    //         const productToAdd = {
-    //             ...product,
-    //             size: selectedSize,
-    //             color: selectedColor,
-    //         };
-    //         addToCart(productToAdd, quantity);
-    //     }
-    // };
+    
        const handleAddToCart = () => {
   if (product) {
     const productToAdd = {
@@ -133,12 +122,10 @@ function ProductDetail() {
     existingCart.push(productToAdd);
     localStorage.setItem('cart', JSON.stringify(existingCart));
 
-    // Navbar update event trigger
     window.dispatchEvent(new Event('cartUpdated'));
 
-    // 🍞 Khoobsurat Toast Alert!
     toast.success(`${product.title || product.name} cart mein add ho gaya!`, {
-      theme: "dark", // 'light', 'dark', ya 'colored'
+      theme: "dark",
     });
   }
 };

@@ -1,11 +1,9 @@
 import './hero.css';
-// import heroImage from '../assets/hero.png';
 
 function Hero() {
   return (
     <section className="hero">
 
-      {/* Left Content */}
       <div className="hero-content">
 
         <h1>
@@ -47,7 +45,6 @@ function Hero() {
 
       </div>
 
-      {/* Right Image */}
       <div className="hero-image">
 
         <span className="star star-one">✦</span>

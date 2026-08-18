@@ -1,9 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
-// Create the CartContext
 export const CartContext = createContext();
 
-// Custom Hook for using cart
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
@@ -12,11 +10,9 @@ export const useCart = () => {
   return context;
 };
 
-// CartProvider Component
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Add to Cart
   const addToCart = (product, quantity = 1) => {
     setCartItems((prevItems) => {
       const productId = product.id || product._id;
@@ -34,12 +30,10 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // Remove from Cart
   const removeFromCart = (id) => {
     setCartItems((prev) => prev.filter((item) => (item.id || item._id) !== id));
   };
 
-  // Update Quantity
   const updateQuantity = (id, delta) => {
     setCartItems((prevItems) =>
       prevItems.map((item) => {

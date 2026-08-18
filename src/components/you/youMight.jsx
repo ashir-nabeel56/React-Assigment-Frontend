@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { getProducts } from '../../api/backendapi'; 
-import './YouMight.css';
+import './youMight.css';
 
 function YouMight() {
   const [products, setProducts] = useState([]);
