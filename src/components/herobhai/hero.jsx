@@ -1,5 +1,5 @@
 import './hero.css';
-
+import image from '../../public/WhatsApp Image 2026-08-14 at 10.15.45 AM.jpeg'
 function Hero() {
   return (
     <section className="hero">
@@ -49,7 +49,7 @@ function Hero() {
 
         <span className="star star-one">✦</span>
 
-        <img src={"/public/b26fea69ccfd8aa5825862cdb9604a4fb4930464.jpg"} alt="Fashion Models" />
+        <img src={image} alt="Fashion Models" />
 
         <span className="star star-two">✦</span>
 

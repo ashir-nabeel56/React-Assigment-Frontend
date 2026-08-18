@@ -1,26 +1,30 @@
 import './brand.css'
-
+import versace from '../../public/Group (1).png'
+import zara from '../../public/gucci-logo-1 1.png'
+import gucci from '../../public/Group (3).png'
+import  prada from '../../public/prada-logo-1 1.png'
+import calvin from '../../public/zara-logo-1 1.png'
 function Brands() {
   return (
     <section className="brands-section">
       <div className="brand-item">
-        <img src="/public/Group (2).png" alt="Versace" />
+        <img src={versace} alt="Versace" />
       </div>
 
       <div className="brand-item">
-        <img src="/public/zara-logo-1 1.png" alt="Zara" />
+        <img src={zara} alt="Zara" />
       </div>
 
       <div className="brand-item">
-        <img src="/public/gucci-logo-1 1.png" alt="Gucci" />
+        <img src={gucci} alt="Gucci" />
       </div>
 
       <div className="brand-item">
-        <img src="/public/prada-logo-1 1.png" alt="Prada" />
+        <img src={prada} alt="Prada" />
       </div>
 
       <div className="brand-item">
-        <img src="/public/Group (1).png" alt="Calvin Klein" />
+        <img src={calvin} alt="Calvin Klein" />
       </div>
     </section>
   );
