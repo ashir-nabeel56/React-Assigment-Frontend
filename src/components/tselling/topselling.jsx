@@ -76,13 +76,13 @@ function TopSelling() {
         )}
       </div>
 
-      {products.length > 4 && (
+      {products.length > visibleCount && (
         <div className="view-all-container">
           <button
             className="view-all-btn"
             onClick={toggleProducts}
           >
-            {visibleCount === 4 ? "View All" : "View Less"}
+            {visibleCount >= products.length ? "View Less" : "View All"}
           </button>
         </div>
       )}
