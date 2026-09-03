@@ -108,6 +108,18 @@ function ProductDetail() {
 
     
        const handleAddToCart = () => {
+  // Check if user is logged in
+  const token = localStorage.getItem('token');
+  const user = localStorage.getItem('user');
+  
+  if (!token || !user) {
+    toast.error('Please create an account first to add items to cart!', {
+      theme: "dark",
+      autoClose: 3000,
+    });
+    return;
+  }
+
   if (product) {
     const productToAdd = {
       ...product,

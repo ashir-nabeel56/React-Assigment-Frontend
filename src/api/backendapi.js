@@ -122,10 +122,10 @@ const fallbackProducts = {
 
 export const getProducts = async () => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2200);
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     try {
-        const response = await fetch('https://react-assigment-backend.vercel.app/products', {
+        const response = await fetch('https://final-delta-ivory.vercel.app/products', {
             signal: controller.signal,
             headers: {
                 Accept: 'application/json',
@@ -136,15 +136,39 @@ export const getProducts = async () => {
             throw new Error('Data fetch nahi hua');
         }
 
-        const data = await response.json();
-
-        if (data && typeof data === 'object') {
-            return data;
+        const contentType = response.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+            throw new Error('API ne JSON response nahi diya');
         }
 
-        return fallbackProducts;
+        const data = await response.json();
+
+        if (!data || typeof data !== 'object') {
+            throw new Error('Invalid products response');
+        }
+
+        if (Array.isArray(data)) {
+            return {
+                newArrivals: data,
+                topSelling: data,
+                youMightAlsoLike: data,
+            };
+        }
+
+        const products = data.products || data.data;
+        if (Array.isArray(products)) {
+            return {
+                ...data,
+                newArrivals: data.newArrivals || products,
+                topSelling: data.topSelling || products,
+                youMightAlsoLike: data.youMightAlsoLike || products,
+            };
+        }
+
+        return data;
     } catch (error) {
         console.error('API Error:', error);
+        console.warn('Live API fail hui — fallback products use ho rahe hain.');
         return fallbackProducts;
     } finally {
         clearTimeout(timeoutId);

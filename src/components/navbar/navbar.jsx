@@ -78,7 +78,9 @@ function Navbar() {
             )}
           </Link>
 
-          <button>◉</button>
+          <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <button>👤 Login</button>
+          </Link>
         </div>
       </nav>
 
