@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Auth.css';
 
@@ -40,13 +40,16 @@ const SignUp = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage({ type: 'success', text: 'Account created successfully!' });
-        
-        // Successful signup par First Name component wale route (/firstname) par redirect
-        setTimeout(() => {
-          navigate('/first');
-        }, 1500);
+        // 1. Auth data save karein
+        localStorage.setItem('isLoggedIn', 'true');
+        if (data.token) localStorage.setItem('token', data.token);
+        if (data.user) localStorage.setItem('user', JSON.stringify(data.user));
 
+        // 2. Global state notification dispatch karein
+        window.dispatchEvent(new Event('authChanged'));
+
+        // 3. Directly navigate to /first
+        navigate('/first');
       } else {
         setMessage({ type: 'error', text: data.message || 'Signup failed. Please try again.' });
       }
@@ -60,7 +63,6 @@ const SignUp = () => {
 
   return (
     <div className="auth-container">
-      
       <div className="auth-card">
         <h2 className="auth-title">Create an Account</h2>
 

@@ -15,6 +15,8 @@ function Routing() {
     <div>
       <Routes>
         <Route path="/"  element={<Sec1/>}/>
+      
+        
         <Route path="/first" element={<First />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

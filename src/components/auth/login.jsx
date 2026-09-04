@@ -47,8 +47,8 @@ const Login = () => {
         if (data.user) localStorage.setItem('user', JSON.stringify(data.user));
 
         setTimeout(() => {
-          navigate('/'); // Next component path
-        }, 1200);
+          navigate('/first'); // Next component path
+        }, 1500);
 
       } else {
         setMessage({ type: 'error', text: data.message || 'Invalid email or password.' });
