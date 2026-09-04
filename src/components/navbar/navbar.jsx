@@ -38,7 +38,7 @@ function Navbar() {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("http://localhost:8000/auth/logout", {
+    await fetch("https://final-delta-ivory.vercel.app/auth/logout", {
       method: "POST",
     });
 
