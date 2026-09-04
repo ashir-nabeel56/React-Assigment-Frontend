@@ -2,9 +2,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter } from "react-router-dom"
 import Routing from "./route/routing"
-import TopBar from "./components/top/topbar"
 import Navbar from "./components/navbar/navbar"
 import Footer from "./components/last/footer"
+import TopBar from './components/top/topbar';
 
 function App() {
   return (

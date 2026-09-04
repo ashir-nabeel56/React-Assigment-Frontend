@@ -5,15 +5,15 @@ import { useCart } from '../cart/CartContext';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [localCartCount, setLocalCartCount] = useState(0);
+  const [localCartCount, setLocalCartCount] = useState(() => {
+    const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    return savedCart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  });
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    () => localStorage.getItem('isLoggedIn') === 'true'
+  );
 
-  let cartItems = [];
-  try {
-    const context = useCart();
-    cartItems = context?.cartItems || [];
-  } catch (error) {
-    cartItems = [];
-  }
+  const { cartItems = [] } = useCart();
 
   const updateCartCount = () => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -22,16 +22,32 @@ function Navbar() {
   };
 
   useEffect(() => {
-    updateCartCount();
+    const updateAuthStatus = () => {
+      setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
+    };
 
     window.addEventListener('cartUpdated', updateCartCount);
     window.addEventListener('storage', updateCartCount);
+    window.addEventListener('authChanged', updateAuthStatus);
 
     return () => {
       window.removeEventListener('cartUpdated', updateCartCount);
       window.removeEventListener('storage', updateCartCount);
+      window.removeEventListener('authChanged', updateAuthStatus);
     };
   }, []);
+
+  const handleLogout = async () => {
+    await fetch("http://localhost:8000/auth/logout", {
+      method: "POST",
+    });
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user");
+
+    window.location.href = "/login";
+  };
 
   const contextCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
   const totalCartCount = contextCount > 0 ? contextCount : localCartCount;
@@ -78,9 +94,13 @@ function Navbar() {
             )}
           </Link>
 
-          <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <button>👤 Login</button>
-          </Link>
+          {isLoggedIn ? (
+            <button onClick={handleLogout}>↪ Logout</button>
+          ) : (
+            <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <button>👤 Login</button>
+            </Link>
+          )}
         </div>
       </nav>
 

@@ -3,17 +3,17 @@ import './productDetail.css';
 import YouMight from "../you/youMight";
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getProducts } from '../../api/backendapi'; 
+import { getProducts, addToCartAPI } from '../../api/backendapi';
 import { useCart } from '../cart/CartContext';
 
 function ProductDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
-    
+
     let addToCart = () => {
         console.warn('CartProvider not found. Using localStorage fallback.');
     };
-    
+
     try {
         const cartContext = useCart();
         addToCart = cartContext?.addToCart || (() => {});
@@ -106,43 +106,59 @@ function ProductDetail() {
         }
     }, [id]);
 
-    
-       const handleAddToCart = () => {
-  // Check if user is logged in
-  const token = localStorage.getItem('token');
-  const user = localStorage.getItem('user');
-  
-  if (!token || !user) {
-    toast.error('Please create an account first to add items to cart!', {
-      theme: "dark",
-      autoClose: 3000,
-    });
-    return;
-  }
+    const handleAddToCart = async () => {
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
-  if (product) {
-    const productToAdd = {
-      ...product,
-      size: selectedSize,
-      color: selectedColor,
-      quantity: quantity
+        if (!isLoggedIn || (!token && !user)) {
+            toast.error('Please create an account first to add items to cart!', {
+                theme: "dark",
+                autoClose: 3000,
+            });
+            return;
+        }
+
+        if (!product) return;
+
+        if (!product.productId) {
+            console.error('Product mein productId missing hai:', product);
+            toast.error('Ye product cart mein add nahi ho saka.', {
+                theme: "dark",
+            });
+            return;
+        }
+
+        const productToAdd = {
+            ...product,
+            size: selectedSize,
+            color: selectedColor,
+            quantity: quantity
+        };
+
+        try {
+            // Backend Cart model mein save karein (product.productId, jaise "P001")
+            await addToCartAPI(product.productId, quantity);
+
+            // Local UI (Context + localStorage) turant update karein
+            if (addToCart) addToCart(productToAdd, quantity);
+
+            const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+            existingCart.push(productToAdd);
+            localStorage.setItem('cart', JSON.stringify(existingCart));
+
+            window.dispatchEvent(new Event('cartUpdated'));
+
+            toast.success(`${product.title || product.name} cart mein add ho gaya!`, {
+                theme: "dark",
+            });
+        } catch (error) {
+            console.error('Add to cart error:', error);
+            toast.error(error.message || 'Cart mein add nahi ho saka, dobara try karein.', {
+                theme: "dark",
+            });
+        }
     };
-
-    if (addToCart) addToCart(productToAdd, quantity);
-
-    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-    existingCart.push(productToAdd);
-    localStorage.setItem('cart', JSON.stringify(existingCart));
-
-    window.dispatchEvent(new Event('cartUpdated'));
-
-    toast.success(`${product.title || product.name} cart mein add ho gaya!`, {
-      theme: "dark",
-    });
-  }
-};
-
-
 
     if (loading) {
         return <h2 style={{ textAlign: 'center', marginTop: '100px' }}>Loading Product Details...</h2>;
@@ -163,8 +179,8 @@ function ProductDetail() {
     }
 
     const mainImageFallback = product.imageUrl || product.image || '';
-    const productImages = (product.images && product.images.length > 0) 
-        ? product.images 
+    const productImages = (product.images && product.images.length > 0)
+        ? product.images
         : [mainImageFallback, mainImageFallback, mainImageFallback];
 
     return (

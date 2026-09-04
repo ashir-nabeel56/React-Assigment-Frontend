@@ -1,3 +1,9 @@
+// ==========================
+// API BASE URL
+// ==========================
+const API_BASE_URL = 'https://final-delta-ivory.vercel.app';
+// Production deploy karte waqt is line ko comment kar ke neeche wali use karein:
+// const API_BASE_URL = 'https://final-git-main-ashir-nabeel-s-projects.vercel.app';
 
 const fallbackProducts = {
     newArrivals: [
@@ -120,12 +126,15 @@ const fallbackProducts = {
     ]
 };
 
+// ==========================
+// PRODUCTS
+// ==========================
 export const getProducts = async () => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     try {
-        const response = await fetch('https://final-delta-ivory.vercel.app/products', {
+        const response = await fetch(`${API_BASE_URL}/products`, {
             signal: controller.signal,
             headers: {
                 Accept: 'application/json',
@@ -173,4 +182,87 @@ export const getProducts = async () => {
     } finally {
         clearTimeout(timeoutId);
     }
+};
+
+// ==========================
+// CART
+// ==========================
+export const addToCartAPI = async (productId, quantity = 1) => {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch(`${API_BASE_URL}/cart/add`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId, quantity }),
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(result.message || 'Cart mein add nahi ho saka');
+    }
+
+    return result;
+};
+
+export const getCartAPI = async () => {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch(`${API_BASE_URL}/cart`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(result.message || 'Cart fetch nahi ho saka');
+    }
+
+    return result;
+};
+
+export const updateCartAPI = async (productId, quantity) => {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch(`${API_BASE_URL}/cart/update`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId, quantity }),
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(result.message || 'Cart update nahi ho saka');
+    }
+
+    return result;
+};
+
+export const removeFromCartAPI = async (productId) => {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch(`${API_BASE_URL}/cart/remove/${productId}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(result.message || 'Item cart se remove nahi ho saka');
+    }
+
+    return result;
 };
