@@ -11,7 +11,7 @@ function ProductDetail() {
     const navigate = useNavigate();
 
     let addToCart = () => {
-        console.warn('CartProvider not found. Using localStorage fallback.');
+        console.log('CartProvider not found. Using localStorage fallback.');
     };
 
     try {
