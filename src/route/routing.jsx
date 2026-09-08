@@ -9,6 +9,7 @@ import Sec1 from "../components/21/sec1.jsx";
 import TopSelling from "../components/tselling/topselling.jsx";
 import Signup from "../components/auth/signup.jsx";
 import Login from "../components/auth/login.jsx";
+import Orders from "../components/order/order.jsx";
 
 function Routing() {
   return (
@@ -16,6 +17,7 @@ function Routing() {
       <Routes>
         <Route path="/"  element={<Sec1/>}/>
       
+        <Route path="/orders" element={<Orders />} />
         
         <Route path="/first" element={<First />} />
         <Route path="/login" element={<Login />} />

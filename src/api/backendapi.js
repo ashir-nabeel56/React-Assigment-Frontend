@@ -5,8 +5,6 @@
 // API BASE URL
 // ==========================
 const API_BASE_URL = 'https://final-delta-ivory.vercel.app';
-// Production deploy karte waqt is line ko comment kar ke neeche wali use karein:
-// const API_BASE_URL = 'https://final-git-main-ashir-nabeel-s-projects.vercel.app';
 
 const fallbackProducts = {
     newArrivals: [
