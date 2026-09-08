@@ -8,6 +8,7 @@ import TopSelling from "../tselling/topselling"
 function sec1() {
   return (
     <div>
+      
       <Hero/>
       <Brands/>
       <ProductList/>
