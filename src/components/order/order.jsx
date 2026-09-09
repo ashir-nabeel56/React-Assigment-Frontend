@@ -7,7 +7,6 @@ function Orders() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // =====================================
   // FETCH USER ORDERS
   // =====================================
   const fetchOrders = async () => {
@@ -76,7 +75,6 @@ function Orders() {
     };
   }, []);
 
-  // =====================================
   // STATUS CLASS
   // =====================================
   const getStatusClass = (status) => {
