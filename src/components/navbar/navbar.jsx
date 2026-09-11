@@ -194,18 +194,17 @@ function Navbar() {
             Shop
           </Link>
 
-          <a href="#">
-            On Sale
-          </a>
+          <Link to="/youmight">
+            You Might
+          </Link>
 
           <Link to="/productlist">
             New Arrivals
           </Link>
 
-          <a href="#">
-            Brands
-          </a>
-
+          <Link to="/category">
+            Casual
+          </Link>
         </div>
 
 
