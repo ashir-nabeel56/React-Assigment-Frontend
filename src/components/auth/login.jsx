@@ -101,7 +101,12 @@ const Login = () => {
             {loading ? 'Logging in...' : 'Log In'}
           </button>
         </form>
-
+         <div>
+          <p className="auth-footer">
+          Dont have an account? 
+          <Link to="/signup" className="auth-link">Create Account</Link>
+        </p>
+         </div>
        
       </div>
     </div>
