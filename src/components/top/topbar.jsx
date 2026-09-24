@@ -3,7 +3,9 @@ import './topBar.css';
 import { Link } from 'react-router-dom';
 
 function TopBar() {
-  const [showTopBar, setShowTopBar] = useState(true);
+  const [showTopBar, setShowTopBar] = useState(
+    !localStorage.getItem('user')
+  );
 
   if (!showTopBar) {
     return null;
