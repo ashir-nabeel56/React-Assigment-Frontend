@@ -1,5 +1,6 @@
 import './hero.css';
 import image from '../../public/WhatsApp Image 2026-08-14 at 10.15.45 AM.jpeg'
+import { Link } from 'react-router-dom';
 function Hero() {
   return (
     <section className="hero">
@@ -20,7 +21,8 @@ function Hero() {
         </p>
 
         <button className="shop-btn">
-          Shop Now
+                   <Link to="/topselling" className="shop-btn">Shop Now</Link>
+
         </button>
 
         {/* Stats */}
