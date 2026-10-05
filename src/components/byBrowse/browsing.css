@@ -1,15 +1,31 @@
-/* Main Wrapper Class (Body aur Global Styling ki jagah) */
+/* =========================================================
+   DRESS STYLE SECTION
+   Premium / Modern E-Commerce Styling
+   ========================================================= */
+
+/* Main Wrapper */
 .dress-style-wrapper {
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #f0f0f0;
-  padding: 20px;
-  font-family: 'Arial', sans-serif;
+
+  padding: 60px 20px;
+
+  background: linear-gradient(
+    135deg,
+    #f8f8f8 0%,
+    #eeeeee 50%,
+    #f7f7f7 100%
+  );
+
+  font-family: "Arial", sans-serif;
+
+  overflow: hidden;
 }
 
-/* Universal reset scope inside the wrapper */
+/* Scoped Reset */
 .dress-style-wrapper,
 .dress-style-wrapper * {
   box-sizing: border-box;
@@ -17,92 +33,454 @@
   padding: 0;
 }
 
-/* Main Container */
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
 .dress-style-container {
-  background-color: #f0f0f0;
-  border-radius: 24px;
-  padding: 40px;
-  max-width: 1000px;
+  position: relative;
+
   width: 100%;
+  max-width: 1100px;
+
+  padding: 45px;
+
+  background: rgba(255, 255, 255, 0.75);
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  border-radius: 28px;
+
   text-align: center;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.08),
+    0 5px 15px rgba(0, 0, 0, 0.04);
+
+  backdrop-filter: blur(12px);
+
+  animation: containerReveal 0.8s ease forwards;
 }
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
 
 .section-title {
-  font-size: 2rem;
+  position: relative;
+
+  display: inline-block;
+
+  margin-bottom: 38px;
+
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+
   font-weight: 900;
-  letter-spacing: 1px;
-  margin-bottom: 30px;
+
+  letter-spacing: 1.5px;
+
   text-transform: uppercase;
-  color: #000;
+
+  color: #111;
+
+  animation: titleReveal 0.8s ease 0.15s both;
 }
 
-/* Grid Layout */
+/* Animated underline */
+.section-title::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -12px;
+
+  width: 55px;
+  height: 4px;
+
+  transform: translateX(-50%);
+
+  background: #000;
+
+  border-radius: 20px;
+
+  transition:
+    width 0.4s ease,
+    background 0.4s ease;
+}
+
+.section-title:hover::after {
+  width: 90px;
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
 .style-grid {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+
+  gap: 22px;
+
+  width: 100%;
 }
 
-/* Card Styling */
+/* =========================================================
+   CARD
+   ========================================================= */
+
 .style-card {
   position: relative;
-  background-color: #ffffff;
-  border-radius: 16px;
+
+  height: 230px;
+
   overflow: hidden;
-  height: 220px;
+
+  background: #fff;
+
+  border-radius: 20px;
+
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  isolation: isolate;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.06);
+
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+
+  animation: cardReveal 0.7s ease both;
 }
 
+/* Individual animation delay */
+.style-card:nth-child(1) {
+  animation-delay: 0.15s;
+}
+
+.style-card:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.style-card:nth-child(3) {
+  animation-delay: 0.35s;
+}
+
+.style-card:nth-child(4) {
+  animation-delay: 0.45s;
+}
+
+.style-card:nth-child(5) {
+  animation-delay: 0.55s;
+}
+
+/* Card Hover */
 .style-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px) scale(1.015);
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.14);
 }
 
-/* Dynamic Widths for Cards */
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+.style-card img {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  z-index: -2;
+
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s ease;
+}
+
+/* Image Zoom */
+.style-card:hover img {
+  transform: scale(1.09);
+
+  filter: brightness(0.88);
+}
+
+/* =========================================================
+   IMAGE OVERLAY
+   ========================================================= */
+
+.style-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0.15) 35%,
+      rgba(0, 0, 0, 0.18) 100%
+    );
+
+  opacity: 0.9;
+
+  transition:
+    opacity 0.5s ease,
+    background 0.5s ease;
+}
+
+.style-card:hover::before {
+  opacity: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.65) 0%,
+      rgba(0, 0, 0, 0.05) 40%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
+}
+
+/* =========================================================
+   CARD TITLE
+   ========================================================= */
+
+.card-title {
+  position: absolute;
+
+  top: 20px;
+  left: 20px;
+
+  z-index: 2;
+
+  padding: 9px 15px;
+
+  font-size: 1.15rem;
+
+  font-weight: 800;
+
+  letter-spacing: 0.3px;
+
+  color: #111;
+
+  background: rgba(255, 255, 255, 0.82);
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+
+  border-radius: 10px;
+
+  backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.08);
+
+  transition:
+    transform 0.4s ease,
+    background 0.4s ease,
+    color 0.4s ease;
+}
+
+.style-card:hover .card-title {
+  transform: translateY(-2px);
+
+  background: #111;
+
+  color: #fff;
+}
+
+/* =========================================================
+   CARD SIZES
+   ========================================================= */
+
 .card-small {
   grid-column: span 1;
-}
-.all{
-    display: flex;
-    justify-content: center;
 }
 
 .card-large {
   grid-column: span 2;
 }
 
-/* Card Title */
-.card-title {
-  position: absolute;
-  top: 20px;
-  left: 24px;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #000000;
-  z-index: 2;
+/* Existing .all class */
+.all {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
 }
 
-/* Image Positioning */
-.style-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top right;
+/* =========================================================
+   ACTIVE / CLICK EFFECT
+   ========================================================= */
+
+.style-card:active {
+  transform: scale(0.98);
 }
 
-/* Responsive Styles */
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .dress-style-wrapper {
+    padding: 40px 18px;
+  }
+
+  .dress-style-container {
+    padding: 35px 25px;
+  }
+
+  .style-grid {
+    gap: 18px;
+  }
+
+  .style-card {
+    height: 210px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
 @media (max-width: 768px) {
+  .dress-style-wrapper {
+    min-height: auto;
+
+    padding: 35px 14px;
+  }
+
+  .dress-style-container {
+    padding: 30px 18px;
+
+    border-radius: 22px;
+  }
+
+  .section-title {
+    margin-bottom: 30px;
+
+    font-size: 1.65rem;
+  }
+
   .style-grid {
     grid-template-columns: 1fr;
+
+    gap: 16px;
   }
 
   .card-small,
   .card-large {
     grid-column: span 1;
   }
-  
+
+  .style-card {
+    height: 220px;
+
+    border-radius: 17px;
+  }
+
+  .card-title {
+    top: 16px;
+    left: 16px;
+
+    font-size: 1rem;
+
+    padding: 8px 13px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .dress-style-wrapper {
+    padding: 25px 10px;
+  }
+
   .dress-style-container {
-    padding: 20px;
+    padding: 25px 12px;
+
+    border-radius: 18px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .style-card {
+    height: 190px;
+  }
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes containerReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes titleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .dress-style-container,
+  .section-title,
+  .style-card {
+    animation: none;
+  }
+
+  .style-card,
+  .style-card img,
+  .card-title,
+  .section-title::after {
+    transition: none;
   }
 }
