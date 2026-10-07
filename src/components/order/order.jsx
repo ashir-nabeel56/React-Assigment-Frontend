@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 import "./order.css";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [cancellingId, setCancellingId] = useState(null);
 
+  // =====================================
   // FETCH USER ORDERS
   // =====================================
   const fetchOrders = async () => {
@@ -52,12 +57,79 @@ function Orders() {
   };
 
   // =====================================
+  // CANCEL ORDER
+  // =====================================
+  const handleCancelOrder = async (orderId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to cancel this order?"
+    );
+
+    if (!confirmed) return;
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Please login first.");
+      return;
+    }
+
+    try {
+      setCancellingId(orderId);
+
+      const response = await fetch(
+        `https://final-delta-ivory.vercel.app/orders/${orderId}/cancel`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Order cancel nahi ho saka."
+        );
+      }
+
+      // =====================================
+      // REMOVE CANCELLED ORDER FROM UI
+      // =====================================
+      setOrders((prevOrders) =>
+        prevOrders.filter(
+          (order) => order._id !== orderId
+        )
+      );
+
+      // =====================================
+      // SUCCESS TOAST
+      // =====================================
+      toast.success("Order cancelled successfully!");
+
+    } catch (err) {
+      console.error("Cancel Order Error:", err);
+
+      // =====================================
+      // ERROR TOAST
+      // =====================================
+      toast.error(
+        err.message || "Order cancel nahi ho saka."
+      );
+
+    } finally {
+      setCancellingId(null);
+    }
+  };
+
+  // =====================================
   // INITIAL LOAD
   // =====================================
   useEffect(() => {
     fetchOrders();
 
-    // Checkout ke baad orders automatically refresh
     const handleOrderUpdated = () => {
       fetchOrders();
     };
@@ -75,6 +147,7 @@ function Orders() {
     };
   }, []);
 
+  // =====================================
   // STATUS CLASS
   // =====================================
   const getStatusClass = (status) => {
@@ -105,11 +178,14 @@ function Orders() {
   const formatDate = (date) => {
     if (!date) return "N/A";
 
-    return new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+    return new Date(date).toLocaleDateString(
+      "en-US",
+      {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }
+    );
   };
 
   // =====================================
@@ -118,31 +194,64 @@ function Orders() {
   if (loading) {
     return (
       <div className="orders-page">
+
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          draggable
+        />
+
         <div className="orders-container">
+
           <div className="orders-loading">
             <div className="orders-spinner"></div>
-            <p>Loading your orders...</p>
+
+            <p>
+              Loading your orders...
+            </p>
           </div>
+
         </div>
       </div>
     );
   }
 
   // =====================================
-  // NOT LOGGED IN / ERROR
+  // ERROR
   // =====================================
   if (error) {
     return (
       <div className="orders-page">
+
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          draggable
+        />
+
         <div className="orders-container">
+
           <div className="orders-error">
+
             <h2>Orders</h2>
+
             <p>{error}</p>
 
-            <Link to="/login" className="orders-login-btn">
+            <Link
+              to="/login"
+              className="orders-login-btn"
+            >
               Login
             </Link>
+
           </div>
+
         </div>
       </div>
     );
@@ -154,12 +263,26 @@ function Orders() {
   if (orders.length === 0) {
     return (
       <div className="orders-page">
+
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          draggable
+        />
+
         <div className="orders-container">
 
           <div className="orders-heading">
+
             <div>
               <h1>My Orders</h1>
-              <p>Track and manage your orders</p>
+
+              <p>
+                Track and manage your orders
+              </p>
             </div>
 
             <button
@@ -168,9 +291,11 @@ function Orders() {
             >
               ↻ Refresh
             </button>
+
           </div>
 
           <div className="empty-orders">
+
             <div className="empty-orders-icon">
               📦
             </div>
@@ -187,6 +312,7 @@ function Orders() {
             >
               Start Shopping
             </Link>
+
           </div>
 
         </div>
@@ -200,12 +326,28 @@ function Orders() {
   return (
     <div className="orders-page">
 
+      {/* =====================================
+          TOAST CONTAINER
+      ===================================== */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
+
       <div className="orders-container">
 
-        {/* HEADER */}
+        {/* =====================================
+            HEADER
+        ===================================== */}
         <div className="orders-heading">
 
           <div>
+
             <h1>My Orders</h1>
 
             <p>
@@ -215,6 +357,7 @@ function Orders() {
                 : "orders"}{" "}
               found
             </p>
+
           </div>
 
           <button
@@ -226,198 +369,264 @@ function Orders() {
 
         </div>
 
-
-        {/* ORDERS */}
+        {/* =====================================
+            ORDERS
+        ===================================== */}
         <div className="orders-grid">
 
-          {orders.map((order) => (
+          {orders.map((order) => {
 
-            <div
-              className="order-card"
-              key={order._id}
-            >
+            const status =
+              order.status?.toLowerCase();
 
-              {/* ORDER HEADER */}
-              <div className="order-card-header">
+            // =====================================
+            // CANCEL ONLY PENDING / PROCESSING
+            // =====================================
+            const canCancel =
+              status === "pending" ||
+              status === "processing";
 
-                <div>
-                  <span className="order-label">
-                    ORDER
+            return (
+              <div
+                className="order-card"
+                key={order._id}
+              >
+
+                {/* =====================================
+                    ORDER HEADER
+                ===================================== */}
+                <div className="order-card-header">
+
+                  <div>
+
+                    <span className="order-label">
+                      ORDER
+                    </span>
+
+                    <h3>
+                      #
+                      {order._id
+                        ?.slice(-8)
+                        .toUpperCase()}
+                    </h3>
+
+                  </div>
+
+                  <span
+                    className={`order-status ${getStatusClass(
+                      order.status
+                    )}`}
+                  >
+                    {order.status || "Pending"}
                   </span>
 
-                  <h3>
-                    #
-                    {order._id
-                      ?.slice(-8)
-                      .toUpperCase()}
-                  </h3>
                 </div>
 
-                <span
-                  className={`order-status ${getStatusClass(
-                    order.status
-                  )}`}
-                >
-                  {order.status || "Pending"}
-                </span>
+                {/* =====================================
+                    ORDER DATE
+                ===================================== */}
+                <div className="order-date">
 
-              </div>
+                  <span>
+                    Order Date
+                  </span>
 
-
-              {/* ORDER DATE */}
-              <div className="order-date">
-                <span>Order Date</span>
-
-                <strong>
-                  {formatDate(
-                    order.createdAt ||
+                  <strong>
+                    {formatDate(
+                      order.createdAt ||
                       order.updatedAt
-                  )}
-                </strong>
-              </div>
+                    )}
+                  </strong>
 
+                </div>
 
-              {/* PRODUCTS */}
-              <div className="order-card-products">
+                {/* =====================================
+                    PRODUCTS
+                ===================================== */}
+                <div className="order-card-products">
 
-                <h4>Products</h4>
+                  <h4>
+                    Products
+                  </h4>
 
-                {order.items?.map(
-                  (item, index) => {
+                  {order.items?.map(
+                    (item, index) => {
 
-                    const product =
-                      item.product || {};
+                      const product =
+                        item.product || {};
 
-                    return (
-                      <div
-                        className="order-product"
-                        key={
-                          item._id ||
-                          index
-                        }
-                      >
+                      return (
+                        <div
+                          className="order-product"
+                          key={
+                            item._id ||
+                            index
+                          }
+                        >
 
-                        {/* PRODUCT IMAGE */}
-                        <div className="order-product-image">
+                          {/* PRODUCT IMAGE */}
+                          <div className="order-product-image">
 
-                          {product.image ||
-                          product.imageUrl ? (
-                            <img
-                              src={
-                                product.image ||
-                                product.imageUrl
-                              }
-                              alt={
-                                product.title ||
+                            {product.image ||
+                            product.imageUrl ? (
+
+                              <img
+                                src={
+                                  product.image ||
+                                  product.imageUrl
+                                }
+                                alt={
+                                  product.title ||
+                                  product.name ||
+                                  "Product"
+                                }
+                              />
+
+                            ) : (
+
+                              <span>
+                                🛍️
+                              </span>
+
+                            )}
+
+                          </div>
+
+                          {/* PRODUCT INFO */}
+                          <div className="order-product-info">
+
+                            <h5>
+                              {product.title ||
                                 product.name ||
-                                "Product"
-                              }
-                            />
-                          ) : (
-                            <span>
-                              🛍️
-                            </span>
-                          )}
+                                "Product"}
+                            </h5>
 
-                        </div>
+                            <p>
+                              Quantity:{" "}
+                              {item.quantity ||
+                                1}
+                            </p>
 
+                          </div>
 
-                        {/* PRODUCT INFO */}
-                        <div className="order-product-info">
-
-                          <h5>
-                            {product.title ||
-                              product.name ||
-                              "Product"}
-                          </h5>
-
-                          <p>
-                            Quantity:{" "}
-                            {item.quantity || 1}
-                          </p>
-
-                        </div>
-
-
-                        {/* PRODUCT PRICE */}
-                        <strong>
-                          $
-                          {Number(
-                            item.price ||
+                          {/* PRODUCT PRICE */}
+                          <strong>
+                            $
+                            {Number(
+                              item.price ||
                               product.price ||
                               0
-                          ).toFixed(2)}
-                        </strong>
+                            ).toFixed(2)}
+                          </strong>
 
-                      </div>
-                    );
-                  }
+                        </div>
+                      );
+                    }
+                  )}
+
+                </div>
+
+                {/* =====================================
+                    ORDER SUMMARY
+                ===================================== */}
+                <div className="order-summary">
+
+                  <div>
+
+                    <span>
+                      Subtotal
+                    </span>
+
+                    <strong>
+                      $
+                      {Number(
+                        order.subtotal ||
+                        order.subTotal ||
+                        0
+                      ).toFixed(2)}
+                    </strong>
+
+                  </div>
+
+                  <div>
+
+                    <span>
+                      Discount
+                    </span>
+
+                    <strong className="discount">
+                      -$
+                      {Number(
+                        order.discount || 0
+                      ).toFixed(2)}
+                    </strong>
+
+                  </div>
+
+                  <div>
+
+                    <span>
+                      Delivery
+                    </span>
+
+                    <strong>
+                      $
+                      {Number(
+                        order.deliveryFee ??
+                        order.shippingFee ??
+                        15
+                      ).toFixed(2)}
+                    </strong>
+
+                  </div>
+
+                  <div className="order-total">
+
+                    <span>
+                      Total
+                    </span>
+
+                    <strong>
+                      $
+                      {Number(
+                        order.totalPrice || 0
+                      ).toFixed(2)}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+                {/* =====================================
+                    CANCEL ORDER
+                ===================================== */}
+                {canCancel && (
+
+                  <button
+                    className="cancel-order-btn"
+                    onClick={() =>
+                      handleCancelOrder(
+                        order._id
+                      )
+                    }
+                    disabled={
+                      cancellingId ===
+                      order._id
+                    }
+                  >
+
+                    {cancellingId ===
+                    order._id
+                      ? "Cancelling..."
+                      : "Cancel Order"}
+
+                  </button>
+
                 )}
 
               </div>
-
-
-              {/* ORDER SUMMARY */}
-              <div className="order-summary">
-
-                <div>
-                  <span>Subtotal</span>
-
-                  <strong>
-                    $
-                    {Number(
-                      order.subtotal ||
-                        order.subTotal ||
-                        0
-                    ).toFixed(2)}
-                  </strong>
-                </div>
-
-
-                <div>
-                  <span>Discount</span>
-
-                  <strong className="discount">
-                    -$
-                    {Number(
-                      order.discount || 0
-                    ).toFixed(2)}
-                  </strong>
-                </div>
-
-
-                <div>
-                  <span>Delivery</span>
-
-                  <strong>
-                    $
-                    {Number(
-                      order.deliveryFee ??
-                        order.shippingFee ??
-                        15
-                    ).toFixed(2)}
-                  </strong>
-                </div>
-
-
-                <div className="order-total">
-
-                  <span>Total</span>
-
-                  <strong>
-                    $
-                    {Number(
-                      order.totalPrice || 0
-                    ).toFixed(2)}
-                  </strong>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          ))}
+            );
+          })}
 
         </div>
 
@@ -428,4 +637,3 @@ function Orders() {
 }
 
 export default Orders;
-
