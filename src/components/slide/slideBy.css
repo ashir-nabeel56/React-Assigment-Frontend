@@ -1,146 +1,368 @@
-/* Main Scoped Wrapper */
+/* =========================================
+   TESTIMONIAL SECTION
+========================================= */
+
 .testimonials-wrapper {
   width: 100%;
-  padding: 40px 20px;
-  background-color: #ffffff;
-  font-family: 'Arial', sans-serif;
+  background: #ffffff;
+  padding: 80px 0;
   overflow: hidden;
-  
-}
-
-/* Reset inside wrapper only */
-.testimonials-wrapper,
-.testimonials-wrapper * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 .testimonials-container {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1240px;
   margin: 0 auto;
+  padding: 0 25px;
+  box-sizing: border-box;
 }
 
-/* Header Area */
+
+/* =========================================
+   HEADER
+========================================= */
+
 .testimonials-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
-  padding: 10vh;
-}
-.testimonials-wrapper {
-  margin-bottom: 180px !important; /* Is se black box ke liye proper gap ban jayega */
+  justify-content: space-between;
+  margin-bottom: 35px;
 }
 
-.testimonials-header .section-title {
-  font-size: 2rem;
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  color: #000000;
-  text-transform: uppercase;
+.section-title {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: #111111;
 }
 
-/* Arrow Navigation Buttons */
+
+/* =========================================
+   ARROWS
+========================================= */
+
 .slider-arrows {
   display: flex;
+  align-items: center;
   gap: 12px;
 }
 
 .arrow-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
+  width: 48px;
+  height: 48px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
+
+  border: 1px solid #dddddd;
   border-radius: 50%;
-  color: #000000;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+
+  background: #ffffff;
+  color: #111111;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .arrow-btn:hover {
-  background-color: #f0f0f0;
+  background: #111111;
+  color: #ffffff;
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Slider Track (Horizontal Scroll) */
+.arrow-btn:active {
+  transform: scale(0.9);
+}
+
+
+/* =========================================
+   SLIDER
+========================================= */
+
 .slider-track {
   display: flex;
-  gap: 20px;
+  gap: 24px;
+
+  width: 100%;
+
   overflow-x: auto;
+
   scroll-behavior: smooth;
-  padding-bottom: 10px;
-  
-  /* Hide Scrollbars */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  scroll-snap-type: x mandatory;
+
+  scrollbar-width: none;
+
+  padding: 10px 5px 25px;
+
+  cursor: grab;
 }
 
 .slider-track::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
-/* Testimonial Card Styling */
-.testimonial-card {
-  min-width: 350px;
-  max-width: 380px;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  padding: 28px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.slider-track:active {
+  cursor: grabbing;
 }
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.testimonial-card {
+  flex: 0 0 calc((100% - 48px) / 3);
+
+  min-height: 245px;
+
+  padding: 30px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  scroll-snap-align: start;
+
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+
+  animation: cardAppear 0.8s ease both;
+}
+
+
+/* =========================================
+   CARD HOVER ANIMATION
+========================================= */
+
+.testimonial-card:hover {
+  transform: translateY(-8px);
+
+  border-color: #cccccc;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================
+   CARD ENTRANCE
+========================================= */
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================
+   STARS
+========================================= */
 
 .stars {
-  color: #FFC107; /* Yellow/Gold Star Color */
-  font-size: 1.25rem;
-  letter-spacing: 2px;
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
 }
+
+.stars span {
+  color: #ffc107;
+  font-size: 20px;
+
+  display: inline-block;
+
+  animation: starPop 0.5s ease both;
+}
+
+.stars span:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.stars span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.stars span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.stars span:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.stars span:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+@keyframes starPop {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* =========================================
+   USER INFO
+========================================= */
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 6px;
+  flex-wrap: wrap;
+
+  margin-bottom: 18px;
 }
 
 .user-name {
-  font-size: 1.1rem;
+  font-size: 18px;
   font-weight: 700;
-  color: #000000;
+  color: #111111;
 }
 
-/* Green Verified Checkmark Circle */
 .verified-badge {
-  background-color: #01AB31;
-  color: #ffffff;
-  font-size: 0.65rem;
-  font-weight: bold;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: inline-flex;
+  width: 19px;
+  height: 19px;
+
+  display: flex;
   align-items: center;
   justify-content: center;
+
+  margin-left: 8px;
+
+  border-radius: 50%;
+
+  background: #111111;
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
 }
+
+.verified-text {
+  margin-left: 8px;
+
+  font-size: 12px;
+  color: #888888;
+}
+
+
+/* =========================================
+   REVIEW
+========================================= */
 
 .review-text {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+
+  font-size: 15px;
+  line-height: 1.8;
+
+  color: #666666;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 600px) {
-  .testimonials-header .section-title {
-    font-size: 1.5rem;
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+  .section-title {
+    font-size: 34px;
   }
 
   .testimonial-card {
-    min-width: 280px;
-    padding: 20px;
+    flex: 0 0 calc((100% - 24px) / 2);
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+  .testimonials-wrapper {
+    padding: 55px 0;
+  }
+
+  .testimonials-container {
+    padding: 0 18px;
+  }
+
+  .testimonials-header {
+    align-items: flex-end;
+    gap: 20px;
+  }
+
+  .section-title {
+    font-size: 27px;
+    line-height: 1.1;
+  }
+
+  .slider-arrows {
+    gap: 7px;
+  }
+
+  .arrow-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .testimonial-card {
+    flex: 0 0 88%;
+    min-height: 230px;
+    padding: 25px;
+  }
+
+  .review-text {
+    font-size: 14px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .testimonial-card {
+    flex: 0 0 92%;
+  }
+
+  .verified-text {
+    display: none;
   }
 }

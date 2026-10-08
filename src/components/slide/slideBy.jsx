@@ -1,93 +1,213 @@
-import  { useRef } from 'react';
-import './slideBy.css';
+import { useEffect, useRef } from "react";
+import "./slideBy.css";
 
 const testimonialsData = [
   {
     id: 1,
-    name: 'Sarah M.',
+    name: "Sarah M.",
     stars: 5,
     review:
-      "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.",
+      "I'm blown away by the quality and style of the clothes. Everything feels premium and comfortable.",
   },
   {
     id: 2,
-    name: 'Alex K.',
+    name: "Alex K.",
     stars: 5,
     review:
-      'Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.',
+      "Finding clothes that match my personal style used to be difficult, but this store made it so easy.",
   },
   {
     id: 3,
-    name: 'James L.',
+    name: "James L.",
     stars: 5,
     review:
-      "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.",
+      "As someone who is always looking for unique fashion, I'm thrilled with the selection here.",
   },
   {
     id: 4,
-    name: 'Mooen P.',
+    name: "Mooen P.",
     stars: 5,
     review:
-      "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. High quality fabrics and super fast delivery!",
+      "The quality is excellent and the delivery was fast. I'll definitely be shopping here again.",
+  },
+  {
+    id: 5,
+    name: "Emily R.",
+    stars: 5,
+    review:
+      "Amazing experience from start to finish. The products look exactly like the pictures.",
+  },
+  {
+    id: 6,
+    name: "Daniel W.",
+    stars: 5,
+    review:
+      "Great designs, great quality and excellent customer service. Highly recommended!",
   },
 ];
 
 const SlideBy = () => {
   const sliderRef = useRef(null);
 
+  // =========================
+  // AUTO SLIDE
+  // =========================
+  useEffect(() => {
+    const slider = sliderRef.current;
+
+    if (!slider) return;
+
+    const autoSlide = setInterval(() => {
+      const card = slider.querySelector(".testimonial-card");
+
+      if (!card) return;
+
+      const cardWidth = card.offsetWidth;
+      const gap = 24;
+
+      // If reached the end, go back to beginning
+      if (
+        slider.scrollLeft + slider.clientWidth >=
+        slider.scrollWidth - 10
+      ) {
+        slider.scrollTo({
+          left: 0,
+          behavior: "smooth",
+        });
+      } else {
+        slider.scrollBy({
+          left: cardWidth + gap,
+          behavior: "smooth",
+        });
+      }
+    }, 4000);
+
+    return () => clearInterval(autoSlide);
+  }, []);
+
+  // =========================
+  // MANUAL SLIDE
+  // =========================
   const handleScroll = (direction) => {
-    if (sliderRef.current) {
-      const scrollAmount = 370; 
-      sliderRef.current.scrollBy({
-        left: direction === 'next' ? scrollAmount : -scrollAmount,
-        behavior: 'smooth',
-      });
-    }
+    if (!sliderRef.current) return;
+
+    const slider = sliderRef.current;
+    const card = slider.querySelector(".testimonial-card");
+
+    if (!card) return;
+
+    const cardWidth = card.offsetWidth;
+    const gap = 24;
+
+    slider.scrollBy({
+      left:
+        direction === "next"
+          ? cardWidth + gap
+          : -(cardWidth + gap),
+      behavior: "smooth",
+    });
   };
 
   return (
-    <div className="testimonials-wrapper">
-      <section className="testimonials-container">
+    <section className="testimonials-wrapper">
+      <div className="testimonials-container">
+
+        {/* HEADER */}
         <div className="testimonials-header">
-          <h2 className="section-title">OUR HAPPY CUSTOMERS</h2>
+          <h2 className="section-title">
+            OUR HAPPY CUSTOMERS
+          </h2>
+
           <div className="slider-arrows">
             <button
               className="arrow-btn"
-              onClick={() => handleScroll('prev')}
-              aria-label="Previous Testimonial"
+              onClick={() => handleScroll("prev")}
+              aria-label="Previous testimonial"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7" />
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M19 12H5M12 19L5 12L12 5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
+
             <button
               className="arrow-btn"
-              onClick={() => handleScroll('next')}
-              aria-label="Next Testimonial"
+              onClick={() => handleScroll("next")}
+              aria-label="Next testimonial"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M5 12H19M12 5L19 12L12 19"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
         </div>
 
-        <div className="slider-track" ref={sliderRef}>
+        {/* SLIDER */}
+        <div
+          className="slider-track"
+          ref={sliderRef}
+        >
           {testimonialsData.map((item) => (
-            <div key={item.id} className="testimonial-card">
+            <article
+              key={item.id}
+              className="testimonial-card"
+            >
+              {/* STARS */}
               <div className="stars">
-                {'★'.repeat(item.stars)}
+                {Array.from(
+                  { length: item.stars },
+                  (_, index) => (
+                    <span key={index}>★</span>
+                  )
+                )}
               </div>
+
+              {/* USER */}
               <div className="user-info">
-                <span className="user-name">{item.name}</span>
-                <span className="verified-badge">✓</span>
+                <span className="user-name">
+                  {item.name}
+                </span>
+
+                <span className="verified-badge">
+                  ✓
+                </span>
+
+                <span className="verified-text">
+                  Verified Customer
+                </span>
               </div>
-              <p className="review-text">"{item.review}"</p>
-            </div>
+
+              {/* REVIEW */}
+              <p className="review-text">
+                "{item.review}"
+              </p>
+            </article>
           ))}
         </div>
-      </section>
-    </div>
+
+      </div>
+    </section>
   );
 };
 

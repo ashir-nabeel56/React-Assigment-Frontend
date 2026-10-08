@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useCart } from "./CartContext";
 import { useNavigate } from "react-router-dom";
 import CheckoutModal from "./CheckoutModal";
+import "react-toastify/dist/ReactToastify.css";
 import "./cart.css";
 
 function Cart() {
@@ -16,8 +17,8 @@ function Cart() {
 
     const displayItems = cartItems || [];
 
-    const [showCheckoutModal, setShowCheckoutModal] = useState(false);
-
+    const [showCheckoutModal, setShowCheckoutModal] =
+        useState(false);
 
     // ==========================================
     // CALCULATIONS
@@ -30,7 +31,6 @@ function Cart() {
         return total + price * quantity;
     }, 0);
 
-
     const discountRate = 0.20;
 
     const discount = subtotal * discountRate;
@@ -38,7 +38,6 @@ function Cart() {
     const deliveryFee = subtotal > 0 ? 15 : 0;
 
     const total = subtotal - discount + deliveryFee;
-
 
     // ==========================================
     // REMOVE ITEM
@@ -57,7 +56,6 @@ function Cart() {
             );
         }
     };
-
 
     // ==========================================
     // UPDATE QUANTITY
@@ -89,9 +87,8 @@ function Cart() {
         }
     };
 
-
     // ==========================================
-    // CHECKOUT / PLACE ORDER (button click)
+    // CHECKOUT / PLACE ORDER
     // ==========================================
 
     const handleCheckout = async () => {
@@ -100,7 +97,6 @@ function Cart() {
 
         const isLoggedIn =
             localStorage.getItem("isLoggedIn");
-
 
         // ------------------------------------------
         // LOGIN CHECK
@@ -119,7 +115,6 @@ function Cart() {
             return;
         }
 
-
         // ------------------------------------------
         // EMPTY CART CHECK
         // ------------------------------------------
@@ -130,7 +125,6 @@ function Cart() {
             return;
         }
 
-
         // ------------------------------------------
         // OPEN SHIPPING INFO MODAL
         // ------------------------------------------
@@ -138,9 +132,8 @@ function Cart() {
         setShowCheckoutModal(true);
     };
 
-
     // ==========================================
-    // SUBMIT ORDER (shipping form submit ke baad)
+    // SUBMIT ORDER
     // ==========================================
 
     const submitOrder = async (shippingInfo) => {
@@ -148,8 +141,13 @@ function Cart() {
             localStorage.getItem("token");
 
         try {
-            toast.info("Placing your order...");
+            // ------------------------------------------
+            // PLACING ORDER TOAST
+            // ------------------------------------------
 
+            toast.info(
+                "Placing your order..."
+            );
 
             // ------------------------------------------
             // PLACE ORDER
@@ -178,7 +176,6 @@ function Cart() {
                 }
             );
 
-
             // ------------------------------------------
             // READ RESPONSE
             // ------------------------------------------
@@ -187,7 +184,6 @@ function Cart() {
                 await response.json().catch(
                     () => ({})
                 );
-
 
             console.log(
                 "Place Order Status:",
@@ -198,7 +194,6 @@ function Cart() {
                 "Place Order Response:",
                 data
             );
-
 
             // ------------------------------------------
             // ERROR
@@ -212,7 +207,6 @@ function Cart() {
                 );
             }
 
-
             // ------------------------------------------
             // SUCCESS
             // ------------------------------------------
@@ -222,31 +216,43 @@ function Cart() {
                 data?.order
             );
 
+            // ------------------------------------------
+            // CLEAR CART
+            // ------------------------------------------
 
-            // Clear local cart
             localStorage.removeItem("cart");
-
 
             // Notify cart
             window.dispatchEvent(
                 new Event("cartUpdated")
             );
 
-
             // Notify orders
             window.dispatchEvent(
                 new Event("orderUpdated")
             );
 
+            // ------------------------------------------
+            // CLOSE MODAL
+            // ------------------------------------------
 
-            // Close modal
             setShowCheckoutModal(false);
 
+            // ------------------------------------------
+            // SUCCESS TOASTIFY
+            // ------------------------------------------
 
             toast.success(
-                "Order placed successfully!"
+                "🎉 Order placed successfully!",
+                {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                }
             );
-
 
             // ------------------------------------------
             // GO TO ORDERS
@@ -254,7 +260,7 @@ function Cart() {
 
             setTimeout(() => {
                 navigate("/orders");
-            }, 1000);
+            }, 1500);
 
         } catch (error) {
             console.error(
@@ -269,44 +275,46 @@ function Cart() {
         }
     };
 
-
     // ==========================================
     // EMPTY CART
     // ==========================================
 
     if (displayItems.length === 0) {
         return (
-            <div className="cart-page">
+            <>
+                <div className="cart-page">
 
-                <div className="empty-cart">
+                    <div className="empty-cart">
 
-                    <div className="empty-cart-icon">
-                        🛒
+                        <div className="empty-cart-icon">
+                            🛒
+                        </div>
+
+                        <h2>
+                            Your Cart is Empty
+                        </h2>
+
+                        <p>
+                            Add some products to your
+                            cart before checkout.
+                        </p>
+
+                        <button
+                            onClick={() =>
+                                navigate("/productlist")
+                            }
+                        >
+                            Continue Shopping
+                        </button>
+
                     </div>
-
-                    <h2>
-                        Your Cart is Empty
-                    </h2>
-
-                    <p>
-                        Add some products to your
-                        cart before checkout.
-                    </p>
-
-                    <button
-                        onClick={() =>
-                            navigate("/productlist")
-                        }
-                    >
-                        Continue Shopping
-                    </button>
 
                 </div>
 
-            </div>
+                <ToastContainer />
+            </>
         );
     }
-
 
     // ==========================================
     // CART UI
@@ -332,7 +340,6 @@ function Cart() {
                     </p>
 
                 </div>
-
 
                 <div className="cart-content">
 
@@ -402,7 +409,6 @@ function Cart() {
 
                                         </div>
 
-
                                         {/* INFO */}
 
                                         <div className="cart-item-info">
@@ -417,7 +423,6 @@ function Cart() {
                                             </p>
 
                                         </div>
-
 
                                         {/* QUANTITY */}
 
@@ -456,7 +461,6 @@ function Cart() {
 
                                         </div>
 
-
                                         {/* ITEM TOTAL */}
 
                                         <strong className="cart-item-total">
@@ -466,7 +470,6 @@ function Cart() {
                                                 quantity
                                             ).toFixed(2)}
                                         </strong>
-
 
                                         {/* REMOVE */}
 
@@ -489,7 +492,6 @@ function Cart() {
 
                     </div>
 
-
                     {/* ==================================
                         SUMMARY
                     ================================== */}
@@ -499,7 +501,6 @@ function Cart() {
                         <h2>
                             Order Summary
                         </h2>
-
 
                         <div className="summary-row">
 
@@ -514,7 +515,6 @@ function Cart() {
 
                         </div>
 
-
                         <div className="summary-row">
 
                             <span>
@@ -527,7 +527,6 @@ function Cart() {
                             </strong>
 
                         </div>
-
 
                         <div className="summary-row">
 
@@ -542,7 +541,6 @@ function Cart() {
 
                         </div>
 
-
                         <div className="summary-total">
 
                             <span>
@@ -556,7 +554,6 @@ function Cart() {
 
                         </div>
 
-
                         <button
                             type="button"
                             className="checkout-btn"
@@ -564,7 +561,6 @@ function Cart() {
                         >
                             Place Order
                         </button>
-
 
                         <button
                             type="button"
@@ -582,18 +578,38 @@ function Cart() {
 
             </div>
 
-
             {/* ==================================
                 SHIPPING INFO MODAL
             ================================== */}
 
             {showCheckoutModal && (
                 <CheckoutModal
-                    onClose={() => setShowCheckoutModal(false)}
+                    onClose={() =>
+                        setShowCheckoutModal(false)
+                    }
                     onSubmit={submitOrder}
                 />
             )}
 
+            {/* ==================================
+                TOASTIFY
+            ================================== */}
+
+            <ToastContainer
+    position="top-right"
+    autoClose={3000}
+    hideProgressBar={false}
+    newestOnTop={true}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="light"
+    style={{
+        top: "70px",
+    }}
+/>
         </div>
     );
 }

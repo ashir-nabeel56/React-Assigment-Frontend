@@ -175,15 +175,6 @@ function Navbar() {
             NAV ICONS
         ===================================== */}
         <div className="nav-icons">
-          {/* MOBILE SEARCH ICON TOGGLE */}
-          <button 
-            className="mobile-search"
-            type="button"
-            onClick={() => setShowMobileSearch(!showMobileSearch)}
-          >
-            ⌕
-          </button>
-
           {/* CART */}
           <Link
             to="/cart"

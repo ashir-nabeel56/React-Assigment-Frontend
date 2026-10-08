@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import First from "../components/allcomponent.jsx/first.jsx";
 import ProductList from "../components/pro/productsList.jsx";
 import ProductDetail from "../components/detail/ProductDetail.jsx";
@@ -10,6 +10,8 @@ import TopSelling from "../components/tselling/topselling.jsx";
 import Signup from "../components/auth/signup.jsx";
 import Login from "../components/auth/login.jsx";
 import Orders from "../components/order/order.jsx";
+import SearchResults from "../components/search/SearchResults.jsx";
+import NotFound from "../components/notFound/NotFound.jsx";
 
 function Routing() {
   return (
@@ -28,13 +30,14 @@ function Routing() {
         <Route path="/topSelling" element={<TopSelling />} />
         
         <Route path="/productlist" element={<ProductList />} />
+        <Route path="/search" element={<SearchResults />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         
         <Route path="/category/:categoryName" element={<CategoryPage />} />
         <Route path="/category" element={<CategoryPage />} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
