@@ -5,11 +5,12 @@ const Footer = () => {
   const [email, setEmail] = useState('');
 
   const paymentBadges = [
-    '/src/public/Badge (1).png',
-    '/src/public/Badge (2).png',
-    '/src/public/Badge (4).png',
-    '/src/public/Badge (5).png',
-    '/src/public/Badge (6).png',
+    '/Badge (1).png',
+    '/Badge (2).png',
+    '/Badge (3).png',
+    '/Badge (4).png',
+    '/Badge (5).png',
+    '/Badge (6).png',
   ];
 
   // Subscribe button click/submit handle karne ke liye function
