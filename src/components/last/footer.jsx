@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import './footer.css';
+import badge1 from '../images/Badge (1).png';
+import badge2 from '../images/Badge (2).png';
+import badge4 from '../images/Badge (4).png';
+import badge5 from '../images/Badge (5).png';
+import badge6 from '../images/Badge (6).png';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
 
   const paymentBadges = [
-    '/Badge (1).png',
-    '/Badge (2).png',
-    '/Badge (3).png',
-    '/Badge (4).png',
-    '/Badge (5).png',
-    '/Badge (6).png',
+    badge1,
+    badge2,
+    badge4,
+    badge5,
+    badge6,
   ];
 
   // Subscribe button click/submit handle karne ke liye function
