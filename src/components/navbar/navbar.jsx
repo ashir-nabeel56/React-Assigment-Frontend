@@ -114,6 +114,52 @@ function Navbar() {
     setLoggingOut(true);
 
     try {
+      const token = localStorage.getItem("token") || "";
+      const response = await fetch(
+        "https://final-delta-ivory.vercel.app/orders/my",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Could not check your orders.");
+      }
+      if (!Array.isArray(data.orders)) {
+        throw new Error("Orders response was invalid.");
+      }
+
+      const processingCount = data.orders.filter(
+        (order) => order.status?.trim().toLowerCase() === "processing"
+      ).length;
+
+      if (
+        processingCount > 0 &&
+        !window.confirm(
+          `You have ${processingCount} order${processingCount === 1 ? "" : "s"} being processed. Logging out will not cancel ${processingCount === 1 ? "it" : "them"}. Do you still want to log out?`
+        )
+      ) {
+        setLoggingOut(false);
+        return;
+      }
+    } catch (error) {
+      console.error("Orders check before logout failed:", error);
+      if (
+        !window.confirm(
+          "Your orders could not be checked. You may have an order being processed. Do you still want to log out?"
+        )
+      ) {
+        setLoggingOut(false);
+        return;
+      }
+    }
+
+    try {
       await fetch("https://final-delta-ivory.vercel.app/auth/logout", {
         method: "POST",
         headers: {
@@ -320,4 +366,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

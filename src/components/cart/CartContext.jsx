@@ -20,11 +20,14 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // ==========================
   // GET CART FROM MONGODB
   // ==========================
   const loadCart = async () => {
+    setIsLoading(true);
+
     try {
       const result = await getCartAPI();
 
@@ -45,8 +48,12 @@ export const CartProvider = ({ children }) => {
         }));
 
       setCartItems(formattedItems);
+      return true;
     } catch (error) {
       console.error('Load Cart Error:', error);
+      return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -148,6 +155,7 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cartItems,
+        isLoading,
         addToCart,
         removeFromCart,
         updateQuantity,

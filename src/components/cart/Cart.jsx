@@ -9,6 +9,8 @@ import "./cart.css";
 function Cart() {
     const {
         cartItems,
+        isLoading,
+        loadCart,
         removeFromCart,
         updateQuantity,
     } = useCart();
@@ -118,6 +120,16 @@ function Cart() {
         // ------------------------------------------
         // EMPTY CART CHECK
         // ------------------------------------------
+
+        if (isLoading && displayItems.length === 0) {
+            return (
+                <div className="cart-page">
+                    <div className="empty-cart" role="status">
+                        <p>Loading your cart...</p>
+                    </div>
+                </div>
+            );
+        }
 
         if (displayItems.length === 0) {
             toast.error("Your cart is empty");
@@ -327,17 +339,28 @@ function Cart() {
 
                 <div className="cart-header">
 
-                    <h1>
-                        Shopping Cart
-                    </h1>
+                    <div className="cart-header-copy">
+                        <h1>
+                            Shopping Cart
+                        </h1>
 
-                    <p>
-                        {displayItems.length}{" "}
-                        {displayItems.length === 1
-                            ? "item"
-                            : "items"}{" "}
-                        in your cart
-                    </p>
+                        <p>
+                            {displayItems.length}{" "}
+                            {displayItems.length === 1
+                                ? "item"
+                                : "items"}{" "}
+                            in your cart
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        className="refresh-cart-btn"
+                        onClick={loadCart}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Refreshing..." : "↻ Refresh"}
+                    </button>
 
                 </div>
 

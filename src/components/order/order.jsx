@@ -60,6 +60,13 @@ function Orders() {
   // CANCEL ORDER
   // =====================================
   const handleCancelOrder = async (orderId) => {
+    const order = orders.find((item) => item._id === orderId);
+
+    if (order?.status?.toLowerCase() !== "pending") {
+      toast.error("Only pending orders can be cancelled.");
+      return;
+    }
+
     const confirmed = window.confirm(
       "Are you sure you want to cancel this order?"
     );
@@ -379,12 +386,7 @@ function Orders() {
             const status =
               order.status?.toLowerCase();
 
-            // =====================================
-            // CANCEL ONLY PENDING / PROCESSING
-            // =====================================
-            const canCancel =
-              status === "pending" ||
-              status === "processing";
+            const canCancel = status === "pending";
 
             return (
               <div

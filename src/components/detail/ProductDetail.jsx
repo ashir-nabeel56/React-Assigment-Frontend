@@ -50,14 +50,7 @@ function ProductDetail() {
                 "The t-shirt exceeded my expectations! The colors are vibrant and top-notch quality.",
             date: "August 16, 2023",
         },
-        {
-            id: 4,
-            name: "Olivia P.",
-            rating: 5,
-            comment:
-                "Simple and functional design. Feels great to wear everywhere.",
-            date: "August 17, 2023",
-        },
+       
     ]);
 
     const [showReviewModal, setShowReviewModal] =
