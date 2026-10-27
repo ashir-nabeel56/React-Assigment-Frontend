@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { API_BASE_URL } from '../../config.js';
 import './Auth.css';
 
 const SignUp = () => {
@@ -14,9 +15,8 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
 
-  const API_BASE = "https://final-delta-ivory.vercel.app";
-  const SIGNUP_URL = `${API_BASE}/auth/signup`;
-  const LOGIN_URL = `${API_BASE}/auth/login`;
+  const SIGNUP_URL = `${API_BASE_URL}/auth/signup`;
+  const LOGIN_URL = `${API_BASE_URL}/auth/login`;
 
   const handleChange = (e) => {
     setFormData({

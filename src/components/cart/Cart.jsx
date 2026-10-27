@@ -3,6 +3,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useCart } from "./CartContext";
 import { useNavigate } from "react-router-dom";
 import CheckoutModal from "./CheckoutModal";
+import { API_BASE_URL, getAuthHeaders } from "../../config.js";
 import "react-toastify/dist/ReactToastify.css";
 import "./cart.css";
 
@@ -149,9 +150,6 @@ function Cart() {
     // ==========================================
 
     const submitOrder = async (shippingInfo) => {
-        const token =
-            localStorage.getItem("token");
-
         try {
             // ------------------------------------------
             // PLACING ORDER TOAST
@@ -166,16 +164,14 @@ function Cart() {
             // ------------------------------------------
 
             const response = await fetch(
-                "https://final-delta-ivory.vercel.app/orders",
+                `${API_BASE_URL}/orders`,
                 {
                     method: "POST",
 
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type":
-                            "application/json",
+                    headers: getAuthHeaders({
+                        "Content-Type": "application/json",
                         Accept: "application/json",
-                    },
+                    }),
 
                     body: JSON.stringify({
                         shippingInfo,

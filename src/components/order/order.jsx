@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { API_BASE_URL, getAuthHeaders } from "../../config.js";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./order.css";
@@ -29,13 +30,12 @@ function Orders() {
       setError("");
 
       const response = await fetch(
-        "https://final-delta-ivory.vercel.app/orders/my",
+        `${API_BASE_URL}/orders/my`,
         {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
+          headers: getAuthHeaders({
             "Content-Type": "application/json",
-          },
+          }),
         }
       );
 
@@ -84,13 +84,12 @@ function Orders() {
       setCancellingId(orderId);
 
       const response = await fetch(
-        `https://final-delta-ivory.vercel.app/orders/${orderId}/cancel`,
+        `${API_BASE_URL}/orders/${orderId}/cancel`,
         {
           method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${token}`,
+          headers: getAuthHeaders({
             "Content-Type": "application/json",
-          },
+          }),
         }
       );
 

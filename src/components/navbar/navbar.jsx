@@ -1,5 +1,6 @@
  
 import { useState, useEffect } from "react";
+import { API_BASE_URL, getAuthHeaders } from "../../config.js";
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../cart/CartContext";
@@ -114,15 +115,13 @@ function Navbar() {
     setLoggingOut(true);
 
     try {
-      const token = localStorage.getItem("token") || "";
       const response = await fetch(
-        "https://final-delta-ivory.vercel.app/orders/my",
+        `${API_BASE_URL}/orders/my`,
         {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
+          headers: getAuthHeaders({
             "Content-Type": "application/json",
-          },
+          }),
         }
       );
       const data = await response.json();
@@ -160,11 +159,9 @@ function Navbar() {
     }
 
     try {
-      await fetch("https://final-delta-ivory.vercel.app/auth/logout", {
+      await fetch(`${API_BASE_URL}/auth/logout`, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-        },
+        headers: getAuthHeaders(),
       });
     } catch (error) {
       console.error("Logout error:", error);
